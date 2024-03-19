@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcharbon <fcharbon@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 12:57:05 by fcharbon          #+#    #+#             */
-/*   Updated: 2024/03/19 18:49:45 by fcharbon         ###   ########.fr       */
+/*   Created: 2024/03/19 18:55:12 by fcharbon          #+#    #+#             */
+/*   Updated: 2024/03/19 19:29:00 by fcharbon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,14 @@ void	char_to_sig(int pid, char c)
 		else
 			kill(pid, SIGUSR1);
 		i--;
-		usleep(100);
+		usleep(420);
 	}
+}
+
+void	handle_receipt(int signal)
+{
+	if (signal == SIGUSR1)
+		ft_printf("Server has acknowledged the message\n");
 }
 
 int	main(int argc, char *argv[])
@@ -34,6 +40,7 @@ int	main(int argc, char *argv[])
 	const char	*message;
 	int			i;
 
+	signal(SIGUSR1, handle_receipt);
 	if (argc != 3)
 	{
 		ft_printf("Argument Error\n");
