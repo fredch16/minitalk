@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcharbon <fcharbon@student.42london.c      +#+  +:+       +#+        */
+/*   By: fcharbon <fcharbon@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 21:15:54 by fcharbon          #+#    #+#             */
-/*   Updated: 2023/12/05 17:39:15 by fcharbon         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:25:04 by fcharbon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h> 
+#include <errno.h>
 
 char	*get_next_line(int fd)
 {
@@ -40,43 +41,4 @@ char	*get_next_line(int fd)
 		if (flag == -1)
 			return (NULL);
 	}
-}
-
-// int	main(void)
-// {
-// 	char	*line;
-// 	int		fd1;
-
-// 	fd1 = open("texto", O_RDONLY);
-// 	if (fd1 == -1)
-// 	{
-// 		perror("Error opening file");
-// 		return (1);
-// 	}
-//     while ((line = get_next_line(fd1)) != NULL) {
-//         printf("line: %s", line);
-//         free(line);
-//     }    
-// 	close(fd1);
-//=     return (0);
-// }
-#include <errno.h>
-int	main(void)
-{
-	char	*line;
-	int		fd1;
-
-	fd1 = open("myfile.txt", O_RDONLY);
-	if (fd1 == -1)
-	{
-		perror("Error opening file");
-		return (0);
-	}
-		while ((line = get_next_line(fd1)) != NULL)
-		{
-			printf("line; %s", line);
-			free(line);
-		}
-	close(fd1);
-	return (0);
 }

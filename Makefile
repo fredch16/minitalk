@@ -6,30 +6,37 @@
 #    By: fcharbon <fcharbon@student.42london.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 13:48:11 by fcharbon          #+#    #+#              #
-#    Updated: 2024/03/19 14:19:29 by fcharbon         ###   ########.fr        #
+#    Updated: 2024/03/19 16:36:53 by fcharbon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := minitalk
+CLIENT_NAME := client
+SERVER_NAME := server
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra -g
-SRCS:= client.c
-
+CLIENT_SRCS:= client.c
+SERVER_SRCS:= server.c
 INCLUDE := push_swap.h
-OBJ := $(SRCS:.c=.o)
+CLIENT_OBJ := $(CLIENT_SRCS:.c=.o)
+SERVER_OBJ := $(SERVER_SRCS:.c=.o)
+LIBFT_D := libft
+LIBFT := $(LIBFT_D)/libft.a
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -lft -Llibft -o $(NAME)
+$(CLIENT_NAME): $(CLIENT_OBJ)
+	$(CC) $(CLIENT_OBJ) $(LIBFT) -o $(CLIENT_NAME)
 
-all: $(NAME)
+$(SERVER_NAME): $(SERVER_OBJ)
+	$(CC) $(SERVER_OBJ) $(LIBFT) -o $(SERVER_NAME)
+
+all: $(LIBFT) $(CLIENT_NAME) $(SERVER_NAME)
 
 clean:
-	/bin/rm -f $(OBJ)
+	/bin/rm -f $(CLIENT_OBJ) $(SERVER_OBJ)
 fclean: clean
-	/bin/rm -f $(NAME)
+	/bin/rm -f $(CLIENT_NAME) $(SERVER_NAME)
 re: fclean all
 
 .PHONY: all clean fclean re

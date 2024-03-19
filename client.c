@@ -6,39 +6,45 @@
 /*   By: fcharbon <fcharbon@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:57:05 by fcharbon          #+#    #+#             */
-/*   Updated: 2024/03/19 14:27:04 by fcharbon         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:19:54 by fcharbon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	char_to_bin(char *str)
+void	char_to_sig(int pid, char c)
 {
-	size_t			i;
-	int				j;
-	unsigned char	c;
+	int			i;
 
-	i = 0;
-	while (i < ft_strlen(str))
+	i = 7;
+	while (i >= 0)
 	{
-		c = (unsigned char)str[i];
-		ft_printf("%c: ", c);
-		j = 7;
-		while (j >= 0)
-		{
-			if (((c & 1 << j)) == 0)
-				ft_putchar_fd('0', 1);
-			else 
-				ft_putchar_fd('1', 1);
-			j--;
-		}
-		ft_printf("\n");
-		i++;
+		if (((c & 1 << i)) == 0)
+			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
+		i--;
+		usleep(100);
 	}
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	char_to_bin("lol bozo");
+	pid_t		server_pid;
+	const char	*message;
+	int			i;
+
+	if (argc != 3)
+	{
+		ft_printf("Argument Error\n");
+		ft_printf("Usage: %s <pid> <message> \n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+	server_pid = ft_atoi(argv[1]);
+	message = argv[2];
+	i = 0;
+	while (message[i])
+		char_to_sig(server_pid, message[i++]);
+	char_to_sig(server_pid, '\0');
 	return (0);
 }
