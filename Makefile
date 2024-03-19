@@ -6,7 +6,7 @@
 #    By: fcharbon <fcharbon@student.42london.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 13:48:11 by fcharbon          #+#    #+#              #
-#    Updated: 2024/03/19 19:26:32 by fcharbon         ###   ########.fr        #
+#    Updated: 2024/03/19 20:05:58 by fcharbon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ LIBFT := $(LIBFT_D)/libft.a
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+all: $(LIBFT) $(CLIENT_NAME) $(SERVER_NAME) 
+
+bonus: $(SERVER_BONUS_NAME) $(CLIENT_BONUS_NAME)
+
 $(CLIENT_NAME): $(CLIENT_OBJ)
 	$(CC) $(CLIENT_OBJ) $(LIBFT) -o $(CLIENT_NAME)
 
@@ -43,12 +47,11 @@ $(CLIENT_BONUS_NAME): $(CLIENT_BONUS_OBJ)
 $(SERVER_BONUS_NAME): $(SERVER_BONUS_OBJ)
 	$(CC) $(SERVER_BONUS_OBJ) $(LIBFT) -o $(SERVER_BONUS_NAME)
 
-all: $(LIBFT) $(CLIENT_NAME) $(SERVER_NAME) $(SERVER_BONUS_NAME) $(CLIENT_BONUS_NAME)
 
 clean:
 	/bin/rm -f $(CLIENT_OBJ) $(SERVER_OBJ) $(CLIENT_BONUS_OBJ) $(SERVER_BONUS_OBJ)
 fclean: clean
-	/bin/rm -f $(CLIENT_NAME) $(SERVER_NAME) $(CLIENT_BONUS_NAME) $(SERVER_BONUS_NAME)
+	/bin/rm -f $(SERVER_NAME) $(CLIENT_NAME) $(CLIENT_BONUS_NAME) $(SERVER_BONUS_NAME)
 re: fclean all
 
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: fcharbon <fcharbon@student.42london.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:57:05 by fcharbon          #+#    #+#             */
-/*   Updated: 2024/03/19 18:49:45 by fcharbon         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:11:00 by fcharbon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	char_to_sig(int pid, char c)
 		else
 			kill(pid, SIGUSR1);
 		i--;
-		usleep(100);
+		usleep(420);
 	}
 }
 
